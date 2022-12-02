@@ -1,41 +1,39 @@
-fn eval_part1(player1: &char, player2: &char) -> u32 {
+use std::time::Instant;
+
+fn eval_part1(player1: &u8, player2: &u8) -> u32 {
     match (player1, player2) {
-        ('A', 'X') => 4,
-        ('A', 'Y') => 8,
-        ('A', 'Z') => 3,
-        ('B', 'X') => 1,
-        ('B', 'Y') => 5,
-        ('B', 'Z') => 9,
-        ('C', 'X') => 7,
-        ('C', 'Y') => 2,
-        ('C', 'Z') => 6,
+        (b'A', b'X') => 4,
+        (b'A', b'Y') => 8,
+        (b'A', b'Z') => 3,
+        (b'B', b'X') => 1,
+        (b'B', b'Y') => 5,
+        (b'B', b'Z') => 9,
+        (b'C', b'X') => 7,
+        (b'C', b'Y') => 2,
+        (b'C', b'Z') => 6,
         _ => 0,
     }
 }
 
-fn eval_part2(player1: &char, player2: &char) -> u32 {
+fn eval_part2(player1: &u8, player2: &u8) -> u32 {
     match (player1, player2) {
-        ('A', 'X') => 3,
-        ('A', 'Y') => 4,
-        ('A', 'Z') => 8,
-        ('B', 'X') => 1,
-        ('B', 'Y') => 5,
-        ('B', 'Z') => 9,
-        ('C', 'X') => 2,
-        ('C', 'Y') => 6,
-        ('C', 'Z') => 7,
+        (b'A', b'X') => 3,
+        (b'A', b'Y') => 4,
+        (b'A', b'Z') => 8,
+        (b'B', b'X') => 1,
+        (b'B', b'Y') => 5,
+        (b'B', b'Z') => 9,
+        (b'C', b'X') => 2,
+        (b'C', b'Y') => 6,
+        (b'C', b'Z') => 7,
         _ => 0,
     }
 }
 
 fn main() {
-    let matches: Vec<(char, char)> = include_str!("../input.txt")
+    let matches: Vec<(u8, u8)> = include_str!("../input.txt")
         .lines()
-        .map(|l| {
-            let bytes = l.as_bytes();
-
-            (bytes[0] as char, bytes[2] as char)
-        })
+        .map(|l| { let bytes = l.as_bytes(); (bytes[0], bytes[2]) })
         .collect();
     let score1: u32 = matches.iter().map(|(p1, p2)| eval_part1(p1, p2)).sum();
     let score2: u32 = matches.iter().map(|(p1, p2)| eval_part2(p1, p2)).sum();
