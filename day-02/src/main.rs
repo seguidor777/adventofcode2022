@@ -1,5 +1,3 @@
-use std::time::Instant;
-
 fn eval_part1(player1: &u8, player2: &u8) -> u32 {
     match (player1, player2) {
         (b'A', b'X') => 4,
@@ -33,7 +31,10 @@ fn eval_part2(player1: &u8, player2: &u8) -> u32 {
 fn main() {
     let matches: Vec<(u8, u8)> = include_str!("../input.txt")
         .lines()
-        .map(|l| { let bytes = l.as_bytes(); (bytes[0], bytes[2]) })
+        .map(|l| {
+            let bytes = l.as_bytes();
+            (bytes[0], bytes[2])
+        })
         .collect();
     let score1: u32 = matches.iter().map(|(p1, p2)| eval_part1(p1, p2)).sum();
     let score2: u32 = matches.iter().map(|(p1, p2)| eval_part2(p1, p2)).sum();
