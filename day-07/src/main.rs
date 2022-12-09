@@ -75,7 +75,11 @@ fn part2(parent_dir: &mut Directory) -> u64 {
     let unused_space = DISK_SIZE - &sizes[0];
     let min_space = NEEDED_SPACE - unused_space;
 
-    *sizes.iter().filter(|&&size| size >= min_space).min().unwrap()
+    *sizes
+        .iter()
+        .filter(|&&size| size >= min_space)
+        .min()
+        .unwrap()
 }
 
 fn main() {
