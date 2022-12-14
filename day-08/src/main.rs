@@ -7,10 +7,10 @@ fn is_visible(grid: &Vec<Vec<u8>>, x: &usize, y: &usize, height: &u8) -> bool {
     }
 
     // Is taller than trees between
-    grid[..*y].iter().rev().all(|row| *height > row[*x])                      // Up
+    grid[..*y].iter().rev().all(|row| *height > row[*x])                           // Up
         || grid[*y][..*x].iter().rev().all(|&other_height| *height > other_height) // Left
         || grid[*y][*x+1..].iter().all(|&other_height| *height > other_height)     // Right
-        || grid[y+1..].iter().all(|row| *height > row[*x])                    // Down
+        || grid[y+1..].iter().all(|row| *height > row[*x]) // Down
 }
 
 fn part1(grid: &Vec<Vec<u8>>) -> usize {
