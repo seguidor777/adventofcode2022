@@ -51,7 +51,11 @@ fn play_keep_away(mut monkeys: Vec<Monkey>, rounds: u32, reducer: impl Fn(u64) -
             monkeys[i].counted += monkeys[i].items.len() as u64;
 
             while let Some(item) = monkeys[i].items.pop_front() {
-                let rhs = if let Some(o) = monkeys[i].operand { o } else { item };
+                let rhs = if let Some(o) = monkeys[i].operand {
+                    o
+                } else {
+                    item
+                };
                 let worry_level = reducer((monkeys[i].operation)(item, rhs));
                 let destination = if worry_level % monkeys[i].divisible_by == 0 {
                     monkeys[i].monkey_true
@@ -78,10 +82,7 @@ fn main() {
         .filter_map(|paragraph| paragraph.parse::<Monkey>().ok())
         .collect();
     let part1 = play_keep_away(monkeys.clone(), 20, |item| item / 3);
-    let modulus: u64 = monkeys
-        .iter()
-        .map(|monkey| monkey.divisible_by)
-        .product();
+    let modulus: u64 = monkeys.iter().map(|monkey| monkey.divisible_by).product();
     let part2 = play_keep_away(monkeys, 10_000, |item| item % modulus);
 
     println!("{part1}\n{part2}");
@@ -108,10 +109,10 @@ mod test {
             .split("\n\n")
             .filter_map(|paragraph| paragraph.parse::<Monkey>().ok())
             .collect();
-        let modulus: u64 = monkeys
-            .iter()
-            .map(|monkey| monkey.divisible_by)
-            .product();
-        assert_eq!(2_713_310_158, play_keep_away(monkeys, 10_000, |item| item % modulus));
+        let modulus: u64 = monkeys.iter().map(|monkey| monkey.divisible_by).product();
+        assert_eq!(
+            2_713_310_158,
+            play_keep_away(monkeys, 10_000, |item| item % modulus)
+        );
     }
 }
