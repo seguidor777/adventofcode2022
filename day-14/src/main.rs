@@ -1,3 +1,4 @@
+use std::collections::btree_map::Entry;
 use std::collections::BTreeMap;
 
 const START_COORD: Coord = (500, 0);
@@ -63,7 +64,8 @@ fn simulate(
                     y += 1;
                 }
                 None => {
-                    if  map.insert((x as usize, y), Tile::Sand).is_some() {
+                    if let Entry::Vacant(_) = map.entry((x as usize, y)) {
+                        map.insert((x as usize, y), Tile::Sand);
                         break;
                     }
                 }
