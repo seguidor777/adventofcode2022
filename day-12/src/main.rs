@@ -75,8 +75,6 @@ impl Node {
 fn find_best_signal(grid: &Grid, mut queue: Queue, end: &Node) -> Option<Vec<Node>> {
     let mut visited: HashSet<Node> = HashSet::new();
 
-    //visited.insert(*start);
-
     while let Some((current, steps)) = queue.pop_front() {
         if current.value == end.value {
             return Some(steps);
