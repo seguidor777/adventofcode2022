@@ -64,9 +64,8 @@ fn simulate(
                     y += 1;
                 }
                 None => {
-                    if let Entry::Vacant(_) = map.entry((x as usize, y)) {
-                        map.insert((x as usize, y), Tile::Sand);
-                        break;
+                    if map.insert((x as usize, y), Tile::Sand).is_none() {
+                        break
                     }
                 }
             };
